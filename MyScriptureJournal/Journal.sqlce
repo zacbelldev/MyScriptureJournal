@@ -1,0 +1,12 @@
+﻿-- Script Date: 6/13/2018 9:06 PM  - ErikEJ.SqlCeScripting version 3.5.2.75
+CREATE TABLE [Journal] (
+  [Id] int IDENTITY (1,1)  NOT NULL
+, [Book] nvarchar(100)  NOT NULL
+, [Chapter] int  NOT NULL
+, [Verse] int  NOT NULL
+, [Note] nvarchar(1000)  NOT NULL
+, [Date] datetime NOT NULL
+);
+GO
+ALTER TABLE [Journal] ADD CONSTRAINT [PK_Journal] PRIMARY KEY ([Id]);
+GO
