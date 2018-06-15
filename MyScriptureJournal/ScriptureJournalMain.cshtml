@@ -1,7 +1,22 @@
 ﻿@{
     var db = Database.Open("JournalDatabase");
-    var selectedData = db.Query("SELECT * FROM JournalTable");
-    var grid = new WebGrid(source: selectedData, rowsPerPage: 5);
+    var selectCommand = "SELECT * FROM JournalTable";
+    var searchTerm = "";
+
+    if (!Request.QueryString["searchBook"].IsEmpty())
+    {
+        selectCommand = "SELECT * FROM JournalTable WHERE Book = @0";
+        searchTerm = Request.QueryString["searchBook"];
+    }
+
+    if (!Request.QueryString["searchKeyword"].IsEmpty())
+    {
+        selectCommand = "SELECT * FROM JournalTable WHERE Note LIKE @0";
+        searchTerm = "%" + Request["searchKeyword"] + "%";
+    }
+
+    var selectedData = db.Query(selectCommand, searchTerm);
+    var grid = new WebGrid(source: selectedData, defaultSort: "Date", rowsPerPage: 3);
 }
 
 <!DOCTYPE html>
@@ -34,7 +49,19 @@
     </style>
 </head>
 <body>
-    <h1>Movies</h1>
+    <h1>Scripture Journal</h1>
+    <form method="get">
+        <div>
+            <label for="searchBook">Book to look for:</label>
+            <input type="text" name="searchBook" value="@Request.QueryString["searchBook"]" />
+            <input type="Submit" value="Search Book" /><br />
+        </div>
+        <div>
+            <label for="searchKeyword">Note contains the following:</label>
+            <input type="text" name="searchKeyword" value="@Request.QueryString["searchKeyword"]" />
+            <input type="Submit" value="Search Keyword in Notes" /><br />
+        </div>
+    </form>
     <div>
         @grid.GetHtml(
             tableStyle: "grid",

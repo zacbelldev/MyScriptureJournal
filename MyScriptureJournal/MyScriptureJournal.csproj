@@ -97,6 +97,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AddJournalEntry.cshtml" />
     <None Include="packages.config" />
     <Content Include="ScriptureJournalMain.cshtml" />
     <None Include="Web.Debug.config">
