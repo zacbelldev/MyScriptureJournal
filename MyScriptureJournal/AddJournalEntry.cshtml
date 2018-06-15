@@ -10,18 +10,20 @@
     var verse = "";
     var text = "";
     var note = "";
+    DateTime myDateTime = DateTime.Now;
+    string sqlFormattedDate = myDateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
 
     if (IsPost && Validation.IsValid())
     {
         book = Request.Form["Book"];
         chapter = Request.Form["Chapter"];
-        verse = Request.Form["Verse"]; 
+        verse = Request.Form["Verse"];
         text = Request.Form["Text"];
         note = Request.Form["Note"];
 
         var db = Database.Open("JournalDatabase");
-        var insertCommand = "INSERT INTO JournalTable (Book, Chapter, Verse, Text, Note) VALUES(@0, @1, @2, @3, @4)";
-        db.Execute(insertCommand, book, chapter, verse, text, note);
+        var insertCommand = "INSERT INTO JournalTable (Book, Chapter, Verse, Text, Note, Date) VALUES(@0, @1, @2, @3, @4, @5)";
+        db.Execute(insertCommand, book, chapter, verse, text, note, sqlFormattedDate);
 
         Response.Redirect("~/Movies");
     }
@@ -31,13 +33,29 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Add a Movie</title>
+    <title>Add a Journal Entry</title>
+    <style type="text/css">
+        .field-validation-error {
+            font-weight: bold;
+            color: red;
+            background-color: yellow;
+        }
+
+        .validation-summary-errors {
+            border: 2px dashed red;
+            color: red;
+            background-color: yellow;
+            font-weight: bold;
+            margin: 12px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Add a Movie</h1>
+    <h1>Add a Journal Entry</h1>
+    @Html.ValidationSummary()
     <form method="post">
         <fieldset>
-            <legend>Movie Information</legend>
+            <legend>Journal Information</legend>
             <p>
                 <label for="book">Book:</label>
                 <input type="text" name="book" value="@Request.Form["Book"]" />
@@ -63,9 +81,6 @@
                 <input type="text" name="note" value="@Request.Form["Note"]" />
                 @Html.ValidationMessage("note")
             </p>
-
-            @*DateTime myDateTime = DateTime.Now;
-                string sqlFormattedDate = myDateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");*@
 
             <p><input type="submit" name="buttonSubmit" value="Add Journal Entry" /></p>
         </fieldset>
