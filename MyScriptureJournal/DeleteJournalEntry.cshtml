@@ -1,33 +1,67 @@
-﻿<html>
+﻿@{
+    var text = "";
+    var date = "";
+    var journalId = "";
+
+    if (!IsPost)
+    {
+        if (!Request.QueryString["Id"].IsEmpty() && Request.QueryString["Id"].IsInt())
+        {
+            journalId = Request.QueryString["ID"];
+            var db = Database.Open("JournalDatabase");
+            var dbCommand = "SELECT * FROM JournalTable WHERE Id = @0";
+            var row = db.QuerySingle(dbCommand, journalId);
+            if (row != null)
+            {
+                text = row.Text;
+                date = Convert.ToString(row.Date);
+            }
+            else
+            {
+                Validation.AddFormError("No entry was found for that ID.");
+            }
+        }
+        else
+        {
+            Validation.AddFormError("No entry was found for that ID.");
+        }
+    }
+
+    if (IsPost && !Request["buttonDelete"].IsEmpty())
+    {
+        journalId = Request.Form["journalId"];
+        var db = Database.Open("JournalDatabase");
+        var deleteCommand = "DELETE FROM JournalTable WHERE Id = @0";
+        db.Execute(deleteCommand, journalId);
+        Response.Redirect("~/ScriptureJournalMain");
+    }
+}
+<!DOCTYPE html>
+<html>
 <head>
-    <title>Delete a Movie</title>
+    <title>Delete a Journal Entry</title>
 </head>
 <body>
-    <h1>Delete a Movie</h1>
+    <h1>Delete a Journal Entry</h1>
     @Html.ValidationSummary()
-    <p><a href="~/Movies">Return to movie listing</a></p>
+    <p><a href="~/ScriptureJournalMain">Return to journal</a></p>
 
     <form method="post">
         <fieldset>
-            <legend>Movie Information</legend>
+            <legend>Entry Information</legend>
 
             <p>
-                <span>Title:</span>
-                <span>@title</span>
+                <span>Date:</span>
+                <span>@date</span>
             </p>
 
             <p>
-                <span>Genre:</span>
-                <span>@genre</span>
+                <span>Text:</span>
+                <span>@text</span>
             </p>
 
-            <p>
-                <span>Year:</span>
-                <span>@year</span>
-            </p>
-
-            <input type="hidden" name="movieid" value="@movieId" />
-            <p><input type="submit" name="buttonDelete" value="Delete Movie" /></p>
+            <input type="hidden" name="journalId" value="@journalId" />
+            <p><input type="submit" name="buttonDelete" value="Delete Entry" /></p>
         </fieldset>
     </form>
 </body>
