@@ -4,6 +4,8 @@
     Validation.RequireField("verse", "You haven't entered a verse number");
     Validation.RequireField("text", "You haven't entered the verse text");
     Validation.RequireField("note", "You haven't entered a note");
+    Validation.Add("chapter", Validator.Integer("Chapter must be an integer"));
+    Validation.Add("verse", Validator.Integer("Verse must be an integer"));
 
     var book = "";
     var chapter = "";
@@ -25,7 +27,7 @@
         var insertCommand = "INSERT INTO JournalTable (Book, Chapter, Verse, Text, Note, Date) VALUES(@0, @1, @2, @3, @4, @5)";
         db.Execute(insertCommand, book, chapter, verse, text, note, sqlFormattedDate);
 
-        Response.Redirect("~/Movies");
+        Response.Redirect("~/ScriptureJournalMain");
     }
 }
 
