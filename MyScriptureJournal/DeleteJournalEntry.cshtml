@@ -1,4 +1,7 @@
 ﻿@{
+    Layout = "~/_Layout.cshtml";
+    Page.Title = "Delete an Entry";
+
     var text = "";
     var date = "";
     var journalId = "";
@@ -36,33 +39,26 @@
         Response.Redirect("~/ScriptureJournalMain");
     }
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Delete a Journal Entry</title>
-</head>
-<body>
-    <h1>Delete a Journal Entry</h1>
-    @Html.ValidationSummary()
-    <p><a href="~/ScriptureJournalMain">Return to journal</a></p>
 
-    <form method="post">
-        <fieldset>
-            <legend>Entry Information</legend>
+<h2>Delete a Journal Entry</h2>
+@Html.ValidationSummary()
+<p><a href="~/ScriptureJournalMain">Return to journal</a></p>
 
-            <p>
-                <span>Date:</span>
-                <span>@date</span>
-            </p>
+<form method="post">
+    <fieldset>
+        <legend>Entry Information</legend>
 
-            <p>
-                <span>Text:</span>
-                <span>@text</span>
-            </p>
+        <p>
+            <span>Date:</span>
+            <span>@date</span>
+        </p>
 
-            <input type="hidden" name="journalId" value="@journalId" />
-            <p><input type="submit" name="buttonDelete" value="Delete Entry" /></p>
-        </fieldset>
-    </form>
-</body>
-</html>
+        <p>
+            <span>Text:</span>
+            <span>@text</span>
+        </p>
+
+        <input type="hidden" name="journalId" value="@journalId" />
+        <p><input type="submit" name="buttonDelete" value="Delete Entry" /></p>
+    </fieldset>
+</form>

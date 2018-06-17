@@ -1,4 +1,7 @@
 ﻿@{
+    Layout = "~/_Layout.cshtml";
+    Page.Title = "Add a Scripture";
+
     Validation.RequireField("book", "You must enter a book");
     Validation.RequireField("chapter", "Chapter number is required");
     Validation.RequireField("verse", "You haven't entered a verse number");
@@ -31,61 +34,38 @@
     }
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Add a Journal Entry</title>
-    <style type="text/css">
-        .field-validation-error {
-            font-weight: bold;
-            color: red;
-            background-color: yellow;
-        }
 
-        .validation-summary-errors {
-            border: 2px dashed red;
-            color: red;
-            background-color: yellow;
-            font-weight: bold;
-            margin: 12px;
-        }
-    </style>
-</head>
-<body>
-    <h1>Add a Journal Entry</h1>
-    @Html.ValidationSummary()
-    <form method="post">
-        <fieldset>
-            <legend>Journal Information</legend>
-            <p>
-                <label for="book">Book:</label>
-                <input type="text" name="book" value="@Request.Form["Book"]" />
-                @Html.ValidationMessage("book")
-            </p>
-            <p>
-                <label for="chapter">Chapter:</label>
-                <input type="text" name="chapter" value="@Request.Form["Chapter"]" />
-                @Html.ValidationMessage("chapter")
-            </p>
-            <p>
-                <label for="verse">Verse:</label>
-                <input type="text" name="verse" value="@Request.Form["Verse"]" />
-                @Html.ValidationMessage("verse")
-            </p>
-            <p>
-                <label for="text">Verse Text:</label>
-                <input type="text" name="text" value="@Request.Form["Text"]" />
-                @Html.ValidationMessage("text")
-            </p>
-            <p>
-                <label for="note">Your note:</label>
-                <input type="text" name="note" value="@Request.Form["Note"]" />
-                @Html.ValidationMessage("note")
-            </p>
+<h2>Add a Journal Entry</h2>
+@Html.ValidationSummary()
+<form method="post">
+    <fieldset>
+        <legend>Journal Information</legend>
+        <p>
+            <label for="book">Book:</label>
+            <input type="text" name="book" value="@Request.Form["Book"]" />
+            @Html.ValidationMessage("book")
+        </p>
+        <p>
+            <label for="chapter">Chapter:</label>
+            <input type="text" name="chapter" value="@Request.Form["Chapter"]" />
+            @Html.ValidationMessage("chapter")
+        </p>
+        <p>
+            <label for="verse">Verse:</label>
+            <input type="text" name="verse" value="@Request.Form["Verse"]" />
+            @Html.ValidationMessage("verse")
+        </p>
+        <p>
+            <label for="text">Verse Text:</label>
+            <input type="text" name="text" value="@Request.Form["Text"]" />
+            @Html.ValidationMessage("text")
+        </p>
+        <p>
+            <label for="note">Your note:</label>
+            <input type="text" name="note" value="@Request.Form["Note"]" />
+            @Html.ValidationMessage("note")
+        </p>
 
-            <p><input type="submit" name="buttonSubmit" value="Add Journal Entry" /></p>
-        </fieldset>
-    </form>
-</body>
-</html>
+        <p><input type="submit" name="buttonSubmit" value="Add Journal Entry" /></p>
+    </fieldset>
+</form>

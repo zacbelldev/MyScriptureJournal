@@ -1,4 +1,7 @@
 ﻿@{
+    Layout = "~/_Layout.cshtml";
+    Page.Title = "List Scriptures";
+
     var db = Database.Open("JournalDatabase");
     var selectCommand = "SELECT * FROM JournalTable";
     var searchTerm = "";
@@ -19,68 +22,36 @@
     var grid = new WebGrid(source: selectedData, defaultSort: "Date", rowsPerPage: 5);
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>Scripture Journal</title>
-    <style type="text/css">
-        .grid {
-            margin: 4px;
-            border-collapse: collapse;
-            width: 600px;
-        }
-
-        .grid th, .grid td {
-            border: 1px solid #C0C0C0;
-            padding: 5px;
-        }
-
-        .head {
-            background-color: #E8E8E8;
-            font-weight: bold;
-            color: #FFF;
-        }
-
-        .alt {
-            background-color: #E8E8E8;
-            color: #000;
-        }
-    </style>
-</head>
-<body>
-    <h1>Scripture Journal</h1>
-    <form method="get">
-        <div>
-            <label for="searchBook">Book to look for:</label>
-            <input type="text" name="searchBook" value="@Request.QueryString["searchBook"]" />
-            <input type="Submit" value="Search Book" /><br />
-        </div>
-        <div>
-            <label for="searchKeyword">Note contains the following:</label>
-            <input type="text" name="searchKeyword" value="@Request.QueryString["searchKeyword"]" />
-            <input type="Submit" value="Search Keyword in Notes" /><br />
-        </div>
-    </form>
+<h2>List Scriptures</h2>
+<form method="get">
     <div>
-        @grid.GetHtml(
-            tableStyle: "grid",
-            headerStyle: "head",
-            alternatingRowStyle: "alt",
-            columns: grid.Columns(
-                grid.Column(format: @<a href="~/EditJournalEntry?id=@item.Id">Edit</a>),
-                grid.Column("Book"),
-                grid.Column("Chapter"),
-                grid.Column("Verse"),
-                grid.Column("Text"),
-                grid.Column("Note"),
-                grid.Column("Date"),
-                grid.Column(format: @<a href="~/DeleteJournalEntry?id=@item.Id">Delete</a>)
-            )
-        )
+        <label for="searchBook">Book to look for:</label>
+        <input type="text" name="searchBook" value="@Request.QueryString["searchBook"]" />
+        <input type="Submit" value="Search Book" /><br />
     </div>
-    <p>
-        <a href="~/AddJournalEntry">Add a scripture</a>
-    </p>
-</body>
-</html>
+    <div>
+        <label for="searchKeyword">Note contains the following:</label>
+        <input type="text" name="searchKeyword" value="@Request.QueryString["searchKeyword"]" />
+        <input type="Submit" value="Search Keyword in Notes" /><br />
+    </div>
+</form>
+<div>
+    @grid.GetHtml(
+        tableStyle: "grid",
+        headerStyle: "head",
+        alternatingRowStyle: "alt",
+        columns: grid.Columns(
+            grid.Column(format: @<a href="~/EditJournalEntry?id=@item.Id">Edit</a>),
+            grid.Column("Book"),
+            grid.Column("Chapter"),
+            grid.Column("Verse"),
+            grid.Column("Text"),
+            grid.Column("Note"),
+            grid.Column("Date"),
+            grid.Column(format: @<a href="~/DeleteJournalEntry?id=@item.Id">Delete</a>)
+        )
+    )
+</div>
+<p>
+    <a href="~/AddJournalEntry">Add a scripture</a>
+</p>

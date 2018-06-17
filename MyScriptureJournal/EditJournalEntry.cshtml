@@ -1,4 +1,7 @@
 ﻿@{
+    Layout = "~/_Layout.cshtml";
+    Page.Title = "Edit an Entry";
+
     var book = "";
     var chapter = 0;
     var verse = 0;
@@ -64,57 +67,41 @@
         }
     }
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Edit a Journal Entry</title>
-    <style>
-        .validation-summary-errors {
-            border: 2px dashed red;
-            color: red;
-            font-weight: bold;
-            margin: 12px;
-        }
-    </style>
-</head>
-<body>
-    <h1>Edit a Journal Entry</h1>
-    @Html.ValidationSummary()
-    <form method="post">
-        <fieldset>
-            <legend>Entry Information</legend>
 
-            <p>
-                <label for="book">Book:</label>
-                <input type="text" name="book" value="@book" />
-            </p>
+<h2>Edit a Journal Entry</h2>
+@Html.ValidationSummary()
+<form method="post">
+    <fieldset>
+        <legend>Entry Information</legend>
 
-            <p>
-                <label for="chapter">Chapter:</label>
-                <input type="text" name="chapter" value="@chapter" />
-            </p>
+        <p>
+            <label for="book">Book:</label>
+            <input type="text" name="book" value="@book" />
+        </p>
 
-            <p>
-                <label for="verse">Verse:</label>
-                <input type="text" name="verse" value="@verse" />
-            </p>
+        <p>
+            <label for="chapter">Chapter:</label>
+            <input type="text" name="chapter" value="@chapter" />
+        </p>
 
-            <p>
-                <label for="text">Text:</label>
-                <input type="text" name="text" value="@text" />
-            </p>
+        <p>
+            <label for="verse">Verse:</label>
+            <input type="text" name="verse" value="@verse" />
+        </p>
 
-            <p>
-                <label for="note">Note:</label>
-                <input type="text" name="note" value="@note" />
-            </p>
+        <p>
+            <label for="text">Text:</label>
+            <input type="text" name="text" value="@text" />
+        </p>
 
-            <input type="hidden" name="journalId" value="@journalId" />
+        <p>
+            <label for="note">Note:</label>
+            <input type="text" name="note" value="@note" />
+        </p>
 
-            <p><input type="submit" name="buttonSubmit" value="Submit Changes" /></p>
-        </fieldset>
-    </form>
-    <p><a href="~/ScriptureJournalMain">Return to journal</a></p>
-</body>
-</html>
+        <input type="hidden" name="journalId" value="@journalId" />
+
+        <p><input type="submit" name="buttonSubmit" value="Submit Changes" /></p>
+    </fieldset>
+</form>
+<p><a href="~/ScriptureJournalMain">Return to journal</a></p>
